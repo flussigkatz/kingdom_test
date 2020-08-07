@@ -1,24 +1,14 @@
-import Peasants.Occupation
 import Peasants.Peasant
 import army.Fighter
-import army.Specialization
-import monarchy.Heir
 import monarchy.Noble
-import monarchy.Ruler
 import taxes.TaxCollector
 
-fun Fighter.upgrade() {
-    when (specialization) {
-        Specialization.SWORDSMAN -> {
-            weapon = "Long sword"
-            strength += 1
-        }
+/**
+ * Напишите extension функцию, которая будет, в зависимости от класса бойца, давать
+ * ему улучшенное оружие(Просто более кртое название) и прокачивать статы
+ */
 
-        Specialization.ARCHER -> {
-            weapon = "Long Bow"
-            dextirity += 2
-        }
-    }
+fun Fighter.upgrade() {
 }
 
 fun main() {
@@ -35,14 +25,6 @@ fun main() {
     }
 }
 
-fun whoWillInheritThrone(heirs: List<Noble>, function: (Noble) -> Unit) {
-    val heir = heirs.maxBy {
-        it.power + it.intellect
-    }
-
-    function(heir!!)
-}
-
 class Kingdom {
     var treasury = 0
 
@@ -50,56 +32,53 @@ class Kingdom {
     val heirs: List<Noble> = createHeirs()
 
     val army: List<Fighter> = createArmy()
-    val peasants: List<Peasant> = createPeasnts()
+    val peasants: List<Peasant> = createPeasants()
 
     val taxCollector: TaxCollector = TaxCollector()
 
-    private fun createRuler() = Ruler("Maximus").also {
-        println("Hail to the King ${it.name}!")
-    }
+    /**
+     * Создайте правителя и выведите следующее приветствие:
+     * "Hail to the King ${it.name}!"
+     */
+    private fun createRuler() {}
 
-    private fun createHeirs(): List<Noble> = mutableListOf<Noble>().apply {
-        add(Heir("Joffrey"))
-        add(Heir("Balanor"))
-        add(Heir("William"))
 
-        forEach {
-            println("Hail to ${it.name}!")
-        }
-    }
+    /**
+     * Создайте несколько наследников престола, каждому дайте свое имя,выведите в консоль приветствие
+     * каждому наследнику:
+     * "Hail to ${it.name}!"
+     */
+    private fun createHeirs(): List<Noble> {}
 
-    private fun createArmy(): List<Fighter> = mutableListOf<Fighter>().apply {
-        repeat(50) {
-            if (it % 2 == 0) {
-                add(Fighter(Specialization.ARCHER))
-            } else {
-                add(Fighter(Specialization.SWORDSMAN))
-            }
-        }
-    }
+    /**
+     * Создайте армию, пусть каждый воторой будет лучник
+     */
+    private fun createArmy(): List<Fighter> {}
 
-    private fun createPeasnts() = mutableListOf<Peasant>().apply {
-        repeat(100) {
-            when  {
-                it % 3 == 0 -> add(Peasant(Occupation.FARMER))
-                it % 2 == 0 -> add(Peasant(Occupation.BUILDER))
-                else -> add(Peasant(Occupation.WORKER))
-            }
-        }
-    }
+
+    /**
+     * Создайте крестьян, пусть крестьяне с номером кратным трем будут фермеры
+     * кратные двум - строителями
+     * все остальные рабочими
+     */
+    private fun createPeasants() {}
 }
 
+/**
+ * Соберите налоги, и реализуйте метод в соответсвии с вызовом в методе main
+ */
 private fun collectTaxes(kingdom: Kingdom, function: (tax: Int) -> Unit) {
-    kingdom.peasants.forEach {
-        val tax = kingdom.taxCollector.collection(it)
-        kingdom.treasury += tax
-    }
-
-    function(kingdom.treasury)
 }
 
-private fun upgradeArmy(army: List<Fighter>) {
-    army.forEach {
-        it.upgrade()
-    }
+/**
+ * Сделайте апгрейд ваший армии использую expression
+ */
+private fun upgradeArmy(army: List<Fighter>) {}
+
+
+/**
+ * В этом методе реализуйте выбор претенденат на трон, нужно сравнить по их параметрам сила
+ * + интеллект, должен быть выбран саммый спосбный
+ */
+fun whoWillInheritThrone(heirs: List<Noble>, function: (Noble) -> Unit) {
 }
