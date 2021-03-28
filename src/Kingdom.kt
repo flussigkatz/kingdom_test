@@ -2,6 +2,7 @@ import Peasants.Occupation
 import Peasants.Peasant
 import army.Fighter
 import army.Specialization
+import monarchy.Heir
 import monarchy.Noble
 import monarchy.Ruler
 import taxes.TaxCollector
@@ -44,7 +45,7 @@ class Kingdom {
     var treasury = 0
 
     val ruler: Ruler = createRuler()
-    val heirs: List<Noble> = createHeirs()
+    val heirs: List<Heir> = createHeirs()
 
     val army: List<Fighter> = createArmy()
     val peasants: List<Peasant> = createPeasants()
@@ -67,12 +68,12 @@ class Kingdom {
      * каждому наследнику:
      * "Hail to ${it.name}!"
      */
-    private fun createHeirs(): List<Noble> {
-        val list = mutableListOf<Noble>()
-        list.add(object : Noble("First"){})
-        list.add(object : Noble("Second"){})
-        list.add(object : Noble("Third"){})
-        list.forEach{ println("Hail to ${it.name}")}
+    private fun createHeirs(): List<Heir> {
+        val list = mutableListOf<Heir>()
+        list.add(object : Heir("First"){})
+        list.add(object : Heir("Second"){})
+        list.add(object : Heir("Third"){})
+        list.forEach{ println("Hail to ${it.name} ${it.intellect} ${it.power}")}
         return list
     }
 
@@ -129,5 +130,8 @@ private fun upgradeArmy(army: List<Fighter>) {
  * В этом методе реализуйте выбор претенденат на трон, нужно сравнить по их параметрам сила
  * + интеллект, должен быть выбран саммый спосбный
  */
-fun whoWillInheritThrone(heirs: List<Noble>, function: (Noble) -> Unit) {
+fun whoWillInheritThrone(heirs: List<Heir>, function: (Heir) -> Unit) {
+//    val newKing = heirs.sortedBy { it.power }.let { it.maxBy { it.intellect } }
+    val newKing = heirs.also { it.forEach{it.power+=it.intellect} }.let { it.maxBy { it.power } }
+    newKing?.let { function(it) }
 }

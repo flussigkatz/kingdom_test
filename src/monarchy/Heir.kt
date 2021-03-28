@@ -1,6 +1,6 @@
 package monarchy
 
-class Heir(name: String): Ruler(name) {
+open class Heir(name: String): Ruler(name) {
 
     init {
         calculateStats()
