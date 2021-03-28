@@ -12,6 +12,18 @@ import taxes.TaxCollector
  */
 
 fun Fighter.upgrade() {
+    when (specialization) {
+        Specialization.SWORDSMAN ->
+            this.apply { dextirity * 2
+                strength * 3
+                weapon = "BFS"
+            }
+        Specialization.ARCHER ->
+            this.apply { dextirity * 3
+                strength * 2
+                weapon = "CompositeBow"
+            }
+    }
 }
 
 fun main() {
@@ -70,11 +82,6 @@ class Kingdom {
     private fun createArmy(): List<Fighter> {
         val list = mutableListOf<Fighter>()
         for (i in 1 .. 100) {
-            /*if (i % 2 == 0) {
-                list.add(Fighter(Specialization.ARCHER))
-            } else {
-                list.add(Fighter(Specialization.SWORDSMAN))
-            }*/
             when {
                 i % 2 == 0 -> list.add(Fighter(Specialization.ARCHER))
                 else -> list.add(Fighter(Specialization.SWORDSMAN))
@@ -106,15 +113,16 @@ class Kingdom {
  * Соберите налоги, и реализуйте метод в соответсвии с вызовом в методе main
  */
 private fun collectTaxes(kingdom: Kingdom, function: (tax: Int) -> Unit) {
-//    val taxGroup = kingdom.peasants.filter {it.occupation == Occupation.WORKER }
-    kingdom.peasants.forEach{kingdom.treasury += it.occupation.taxRate}
-    function(kingdom.treasury)
+    kingdom.apply {peasants.forEach{treasury += taxCollector.collection(it)}
+    function(treasury)}
 }
 
 /**
  * Сделайте апгрейд ваший армии использую expression
  */
-private fun upgradeArmy(army: List<Fighter>) {}
+private fun upgradeArmy(army: List<Fighter>) {
+    army.forEach{it.upgrade()}
+}
 
 
 /**
