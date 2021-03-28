@@ -60,6 +60,7 @@ class Kingdom {
         list.add(object : Noble("First"){})
         list.add(object : Noble("Second"){})
         list.add(object : Noble("Third"){})
+        list.forEach{ println("Hail to ${it.name}")}
         return list
     }
 
