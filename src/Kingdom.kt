@@ -31,7 +31,7 @@ fun main() {
 class Kingdom {
     var treasury = 0
 
-    val ruler: Noble = createRuler()
+    val ruler: Ruler = createRuler()
     val heirs: List<Noble> = createHeirs()
 
     val army: List<Fighter> = createArmy()
@@ -44,7 +44,9 @@ class Kingdom {
      * "Hail to the King ${it.name}!"
      */
     private fun createRuler(): Ruler {
-        return Ruler("HUI S GORI")
+      val ruler = Ruler("HUI S GORI")
+          ruler.let { println("Hail to the King ${it.name}!")}
+      return ruler
     }
 
 
