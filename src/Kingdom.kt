@@ -43,8 +43,8 @@ class Kingdom {
      * Создайте правителя и выведите следующее приветствие:
      * "Hail to the King ${it.name}!"
      */
-    private fun createRuler() {
-        object: Ruler("HUI S GORI"){}
+    private fun createRuler(): Ruler {
+        return Ruler("HUI S GORI")
     }
 
 
@@ -103,6 +103,9 @@ class Kingdom {
  * Соберите налоги, и реализуйте метод в соответсвии с вызовом в методе main
  */
 private fun collectTaxes(kingdom: Kingdom, function: (tax: Int) -> Unit) {
+//    val taxGroup = kingdom.peasants.filter {it.occupation == Occupation.WORKER }
+    kingdom.peasants.forEach{kingdom.treasury += it.occupation.taxRate}
+    function(kingdom.treasury)
 }
 
 /**
