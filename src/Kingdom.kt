@@ -1,3 +1,4 @@
+import Peasants.Occupation
 import Peasants.Peasant
 import army.Fighter
 import army.Specialization
@@ -66,10 +67,14 @@ class Kingdom {
     private fun createArmy(): List<Fighter> {
         val list = mutableListOf<Fighter>()
         for (i in 1 .. 100) {
-            if (i % 2 == 0) {
+            /*if (i % 2 == 0) {
                 list.add(Fighter(Specialization.ARCHER))
             } else {
                 list.add(Fighter(Specialization.SWORDSMAN))
+            }*/
+            when {
+                i % 2 == 0 -> list.add(Fighter(Specialization.ARCHER))
+                else -> list.add(Fighter(Specialization.SWORDSMAN))
             }
         }
         return list
@@ -81,7 +86,17 @@ class Kingdom {
      * кратные двум - строителями
      * все остальные рабочими
      */
-    private fun createPeasants() {}
+    private fun createPeasants(): List<Peasant> {
+        val list = mutableListOf<Peasant>()
+        for (i in 1 .. 200) {
+            when {
+                i % 3 == 0 -> list.add(Peasant(Occupation.FARMER))
+                i % 2 == 0 -> list.add(Peasant(Occupation.BUILDER))
+                else -> list.add(Peasant(Occupation.WORKER))
+            }
+        }
+        return list
+    }
 }
 
 /**
