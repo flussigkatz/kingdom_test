@@ -1,6 +1,8 @@
 import Peasants.Peasant
 import army.Fighter
+import army.Specialization
 import monarchy.Noble
+import monarchy.Ruler
 import taxes.TaxCollector
 
 /**
@@ -40,7 +42,9 @@ class Kingdom {
      * Создайте правителя и выведите следующее приветствие:
      * "Hail to the King ${it.name}!"
      */
-    private fun createRuler() {}
+    private fun createRuler() {
+        object: Ruler("HUI S GORI"){}
+    }
 
 
     /**
@@ -48,12 +52,28 @@ class Kingdom {
      * каждому наследнику:
      * "Hail to ${it.name}!"
      */
-    private fun createHeirs(): List<Noble> {}
+    private fun createHeirs(): List<Noble> {
+        val list = mutableListOf<Noble>()
+        list.add(object : Noble("First"){})
+        list.add(object : Noble("Second"){})
+        list.add(object : Noble("Third"){})
+        return list
+    }
 
     /**
      * Создайте армию, пусть каждый воторой будет лучник
      */
-    private fun createArmy(): List<Fighter> {}
+    private fun createArmy(): List<Fighter> {
+        val list = mutableListOf<Fighter>()
+        for (i in 1 .. 100) {
+            if (i % 2 == 0) {
+                list.add(Fighter(Specialization.ARCHER))
+            } else {
+                list.add(Fighter(Specialization.SWORDSMAN))
+            }
+        }
+        return list
+    }
 
 
     /**
